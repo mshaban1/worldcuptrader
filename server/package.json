@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "installDeps": "npm && cd client && npm"
+    "installDeps": "yarn && cd client && yarn"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +15,6 @@
     "nodemon": "^1.17.3"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.1",
