@@ -1,0 +1,64 @@
+Arguments: 
+  /usr/local/Cellar/node/9.7.1/bin/node /usr/local/bin/yarn start
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  9.7.1
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+      "name": "server",
+      "version": "1.0.0",
+      "description": "",
+      "main": "server.js",
+      "scripts": {
+          "client": "cd client && npm start",
+          "server": "cd server && npm start",
+          "start": "concurrently \"nodemon server\" \"npm run client\"",
+          "test": "echo \"Error: no test specified\" && exit 1",
+          "installClientDeps": "cd client && npm install",
+          "installServerDeps": "cd server && npm install",
+          "installDeps": "npm run installClientDeps && npm run installServerDeps",
+          "predeploy": "npm run build"
+      },
+      "author": "",
+      "license": "ISC",
+      "devDependencies": {
+          "concurrently": "^3.5.0",
+          "nodemon": "^1.11.0"
+      },
+      "dependencies": {
+          "express": "^4.15.4",
+          "mongoose": "^4.11.7",
+          "socket.io": "^2.1.0"
+      }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: Command failed.
+  Exit code: 127
+  Command: sh
+  Arguments: -c concurrently "nodemon server" "npm run client"
+  Directory: /Users/Mohamed/Desktop/class/worldcuptrader
+  Output:
+  
+      at ProcessTermError.MessageError (/usr/local/lib/node_modules/yarn/lib/cli.js:186:110)
+      at new ProcessTermError (/usr/local/lib/node_modules/yarn/lib/cli.js:226:113)
+      at ChildProcess.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:30281:17)
+      at ChildProcess.emit (events.js:127:13)
+      at maybeClose (internal/child_process.js:936:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:220:5)
