@@ -32,13 +32,13 @@ class Control extends Component {
 
         API.userHas(localStorage.getItem('Username'))
             .then(result => {
-                console.log('User has: ' + result)
+                //console.log('User has: ' + result)
                 this.setState({ userHas: result.data})
             });
             
         API.userNeeds(localStorage.getItem('Username'))
             .then(result => {
-                console.log(result)
+               // console.log(result)
                 this.setState({ userNeeds: result.data})
             });
     }
@@ -47,7 +47,7 @@ class Control extends Component {
         console.log('clickTrader launched')
         event.preventDefault();
         const name = event.target.innerText
-        console.log(name);
+       // console.log(name);
         API.userNeeds(name)
             .then(result => {
                 this.setState({
@@ -85,13 +85,16 @@ class Control extends Component {
             });
 
         } else if (option === 'Has') {
-            const uHas = this.state.uHas;
-            API.updateUser({
-                has: [...this.state.uHas, uHas]
-            });
+            const Has = parseInt(this.state.uHas);
             this.setState({
+                userHas: [...this.state.userHas, Has],
                 uHas: ''
-            })
+            });
+            API.updateUser({
+                username: localStorage.getItem('Username'),
+                key: 'Has',
+                value: [...this.state.userHas, Has],
+            });
         }
     }
 
