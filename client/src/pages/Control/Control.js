@@ -148,7 +148,7 @@ class Control extends Component {
             <form id="user-has-form">
                 <label htmlFor="message">User Has</label>
                 <br/>
-                <ul id="message" name="message" required="required">{this.state.userHas.map(card => 
+                <ul className="block" id="message" name="message" required="required">{this.state.userHas.map(card => 
                 (
                     <li>{card}</li>
                 ))}</ul>
