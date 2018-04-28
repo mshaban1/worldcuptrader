@@ -4,13 +4,12 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-        "client": "cd client && node start",
-        "server": "cd server && node start",
-        "start": "concurrently \"nodemon server\" \"npm run client\"",
+        "client": "cd client && npm start",
+        "server": "cd server && npm start",
+        "start": "concurrently \"npm run server\" \"npm run client\"",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "installClientDeps": "cd client && npm install",
-        "installServerDeps": "cd server && npm install",
-        "installDeps": "npm run installClientDeps && npm run installServerDeps"
+        "installDeps": "yarn && cd client && yarn"
+
     },
     "author": "",
     "license": "ISC",
