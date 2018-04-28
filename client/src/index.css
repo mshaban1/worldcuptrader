@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body, #root, #root>div {
+    margin: 0 auto;
+    height: 100%;
+}
+
+body {
+    background: url('/images/front-bg.jpg');
+    background-size: cover;
+    color: white;
+
+}
+
+@font-face {
+    font-family: dusha_plusregular;
+    src: url('/fonts/dusha_plusregular.ttf');
+
+}

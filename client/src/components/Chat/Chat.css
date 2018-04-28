@@ -1,0 +1,38 @@
+body {
+	height: 100px;
+}
+
+.msgSelf {
+	color: blue;
+}
+
+.msgOther {
+	color: red;
+}
+
+.container {
+	margin: 0;
+}
+
+.card-body {
+	color: black;
+	background-color: white;
+}
+
+#card-title {
+	color: black;
+	font-size: 25px;
+	font-family: "dusha_plusregular";
+	border-radius: .25rem;	
+	text-shadow: 1px 1px 1px black;
+}
+
+.messages {
+	background-color: lightgray;
+	border-radius: .25rem;
+	text-shadow: 0px 0px 0px black;
+}
+
+.card {
+	opacity: .7;
+}
