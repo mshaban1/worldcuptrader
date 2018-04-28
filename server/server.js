@@ -21,15 +21,15 @@ const io = require('socket.io').listen(server);
 
 
 
-// io.on('connection', (client) => {
-//     console.log('CONNECTED WOOOOOOOOOOOOOO');
+io.on('connection', (client) => {
+    console.log('CONNECTED WOOOOOOOOOOOOOO');
 
-//     client.on('message', (data) => {
-//         console.log('message broadcasted from ' + data.username)
-//         client.broadcast.emit('message', data)
-//     })
+    client.on('message', (data) => {
+        console.log('message broadcasted from ' + data.username)
+        client.broadcast.emit('message', data)
+    })
 
-// });
+});
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
