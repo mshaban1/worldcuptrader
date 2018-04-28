@@ -8,8 +8,10 @@
         "server": "cd server && npm start",
         "start": "concurrently \"npm run server\" \"npm run client\"",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "installDeps": "yarn && cd client && yarn"
-    },
+        "installClientDeps": "cd client && npm install",
+        "installServerDeps": "cd server && npm install",
+        "installDeps": "npm run installClientDeps && npm run installServerDeps"
+        },
     "author": "",
     "license": "ISC",
     "devDependencies": {
