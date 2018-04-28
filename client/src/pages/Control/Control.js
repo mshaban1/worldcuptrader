@@ -111,7 +111,6 @@ class Control extends Component {
 
       return (
         <div>
-            <Header/>
             <div className="wrapper">
                 <div className="forms">
                 <form id="user-needs-form">
