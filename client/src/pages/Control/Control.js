@@ -145,11 +145,16 @@ class Control extends Component {
             <form id="user-has-form">
                 <label htmlFor="message">User Has</label>
                 <br/>
-                <ul id="message" name="message" required="required">{this.state.userHas.map(card => (
+                <ul id="message" name="message" required="required">{this.state.userHas.map(card => 
+                (
                     <li>{card}</li>
                 ))}</ul>
-                <input />
-                <button type="submit" onClick= {(e)=>(e.preventDefault(), this.handleUpdate())}>Submit</button>
+                <input name="uHas" onChange={this.handleInputChange} value={this.state.uHas}/>
+                <button type="submit" 
+                onClick={(e)=>{
+                    e.preventDefault()
+                    this.handleUpdate('Has')
+                }}>Submit</button>
             </form>
             
             <form id="they-have-form">

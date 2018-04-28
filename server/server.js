@@ -9,6 +9,7 @@ const LocalStrategy = require('passport-local').Strategy;
 // const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
   }
@@ -35,24 +36,11 @@ mongoose.connect(
 });
 
 
-	
-
 // Configure body parser for AJAX requests
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // Serve up static
 app.use(express.static("../client/build"));
 
-
-// Set up promises with mongoose
-// mongoose.Promise = global.Promise;
-// // Connect to the Mongo DB
-// mongoose.connect(
-//     process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist",
-//     {
-//         useMongoClient: true
-//     }
-// );
 
 // Set up the strategy to accept Local authentication
 passport.use(new LocalStrategy(
@@ -102,7 +90,7 @@ app.post('/register', function(req, res) {
             }
             console.log('found*********** ',foundUsers);
             if (foundUsers && foundUsers.length > 0 ) {
-                console.log('founder user: '+foundUsers);
+                console.log('founder user: ' + foundUsers);
                 // if users are found, we cannot create the user
                 // send an appropriate response back
                 res.status(204);
@@ -131,17 +119,12 @@ app.post('/register', function(req, res) {
                         return;
                     }
                     var payload = {
-
                         'username': user.username,
                         'email': user.email
                     };
                     var token = jwt.sign(payload, config.jwt.secret, {
                         expiresIn: 14400*360
                     });
-                    //if you want to use cookies
-                    // res.cookie('accessToken', token, {
-                    //     'maxAge': 86400000
-                    // });
                     res.json({
                         success: true,
                         message: 'User added/created successfully',
@@ -213,10 +196,6 @@ app.post('/updateUser', function(req, res) {
     );
 });
 
-// app.post('/login',
-//   passport.authenticate('local', { successRedirect: '/',
-//                                    failureRedirect: '/login' }));
-
 const server = app.listen(PORT)
 
 // Establish the connection
@@ -224,8 +203,6 @@ const io = require('socket.io').listen(server);
 
 io.on('connection', (client) => {
 	console.log('CONNECTED WOOOOOOOOOOOOOO');
-    // client.emit('test')
-
 
 	client.on('message', (data) => {
 		console.log('message broadcasted from ' + data.username)
@@ -235,8 +212,6 @@ io.on('connection', (client) => {
 })
 
 // Set the socket up to listen on a unique PORT and start running it
-// const IOPORT = 5000;
-
 
 app.get('/usersList', function(req, res) {
     User.find({},function(err, users) {
@@ -250,15 +225,3 @@ app.get('/usersList', function(req, res) {
       res.send(users);  
     });
   });
-
-
-  
-// Start the API server
-
-// app.listen(PORT, function () {
-//     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-// });
-
-
-
-// console.log('IO Listening on port ' + IOPORT)
