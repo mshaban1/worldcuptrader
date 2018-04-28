@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-// const morgan = require("morgan");
+const morgan = require("morgan");
 const config = require("./config.js");
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 var User = require("./models/user.js");
 
 // Use morgan logger for logging requests
-// app.use(morgan("dev"));
+app.use(morgan("dev"));
 // Use body-parser for handling form submissions
 app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
