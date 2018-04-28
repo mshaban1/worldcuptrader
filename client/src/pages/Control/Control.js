@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import Chat from "../../components/Chat"
 import './style.css';
 import API from '../../utils/API';
+import { Link } from 'react-router-dom'
 
 
 
@@ -100,6 +101,7 @@ class Control extends Component {
       return (
         <div>
             <Header/>
+            <Link to="/">Logout</Link>
             <div className="wrapper">
                 <div className="forms">
                 <form id="user-needs-form">

@@ -16,7 +16,7 @@ class Chat extends Component {
 
 		// console.log('test')
 
-		const socket = openSocket('http://localhost:3001');
+		const socket = openSocket('http://localhost:8080');
 		
 		this.socket = socket;
 
