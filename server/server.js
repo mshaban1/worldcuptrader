@@ -20,15 +20,19 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
+
 // Use Passport to authenticate the User
 app.use(passport.initialize());
 // By default mongoose uses callbacks for async queries, we're setting it to use promises (.then syntax) instead
 // Connect to the Mongo DB
-mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Traders", {
-	useMongoClient: true
-});
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Traders";
 
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI, {
+  useMongoClient: true
+});
 
 	
 
@@ -38,6 +42,19 @@ app.use(bodyParser.json());
 // Serve up static
 app.use(express.static("../client/build"));
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+  }
+
+  // Set up promises with mongoose
+// mongoose.Promise = global.Promise;
+// // Connect to the Mongo DB
+// mongoose.connect(
+//     process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist",
+//     {
+//         useMongoClient: true
+//     }
+// );
 
 // Set up the strategy to accept Local authentication
 passport.use(new LocalStrategy(
@@ -174,9 +191,9 @@ app.get('/usersList/', function(req, res) {
     });
   });
 
-app.get('/userHas/:username', function(req, res) {
+  app.get('/userHas/:username', function(req, res) {
     User.find({username: req.params.username }, function(err, users) {
-        console.log(users[0].has)
+        console.log('this is: ' + users)
         res.send(users[0].has)
     });
 });
@@ -184,19 +201,22 @@ app.get('/userHas/:username', function(req, res) {
 app.get('/userNeeds/:username', function(req, res) {
     User.find({username: req.params.username}, function(err, users) {
         res.send(users[0].needs)
+        console.log(users[0])
     });
+   
 
 });
 
 app.post('/updateUser', function(req, res) {
-    console.log('key: ' + req.body.key)
-    console.log('value: ' + req.body.value)
-    console.log('username: ' + req.body.username)
     User.findOneAndUpdate(
         {username: req.body.username},
-        {[req.body.key]: req.body.value}
-    );
+        {[req.body.key]: req.body.value},
+    function(err, update) {
+        if (err) {return err};
+        res.send(update);
+    });
 });
+
 
 // app.post('/login',
 //   passport.authenticate('local', { successRedirect: '/',

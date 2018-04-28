@@ -8,9 +8,7 @@ const API = {
 	loginUser: function(data) {
 		return axios.post('/login', data);
 	},
-	logOut: function(data) {
-		return axios.get('/logout', data);
-	},
+
 	updateUser: function(data) {
 		return axios.post('/updateUser', data);
 	},

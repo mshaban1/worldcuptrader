@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "installDeps": "npm && cd client && npm"
+    "installDeps": "yarn && cd client && yarn"
   },
   "author": "",
   "license": "ISC",

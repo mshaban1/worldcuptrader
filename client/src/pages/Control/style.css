@@ -17,7 +17,7 @@ form{
 textarea, .block {
     display: block;
     padding: 20%;
-    background-color: lightblue; 
+    /* background-color: lightblue; */
     opacity: .7;
 }
 

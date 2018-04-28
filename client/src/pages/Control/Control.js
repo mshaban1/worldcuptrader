@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Chat from "../../components/Chat"
 import './style.css';
 import API from '../../utils/API';
-import { Link } from 'react-router-dom'
+
 
 
 
@@ -24,24 +25,30 @@ class Control extends Component {
     componentDidMount() {
         API.usersList()
             .then(result => {
+                console.log(result)
+                // debugger
                 this.setState({ users: result.data })
             })
             .catch(err => alert(err));
 
         API.userHas(localStorage.getItem('Username'))
             .then(result => {
+                console.log('User has: ' + result.data)
                 this.setState({ userHas: result.data})
             });
             
         API.userNeeds(localStorage.getItem('Username'))
             .then(result => {
+                console.log(result)
                 this.setState({ userNeeds: result.data})
             });
     }
 
     clickTrader = event => {
+        console.log('clickTrader launched')
         event.preventDefault();
         const name = event.target.innerText
+        console.log(name);
         API.userNeeds(name)
             .then(result => {
                 this.setState({
@@ -67,7 +74,7 @@ class Control extends Component {
         if (option === 'Needs') {
         //event.preventDefault();
 
-            const Needs = parseInt(this.state.uNeeds, 10);
+            const Needs = parseInt(this.state.uNeeds);
             this.setState({
                 userNeeds: [...this.state.userNeeds, Needs],
                 uNeeds: ''
@@ -79,13 +86,17 @@ class Control extends Component {
             });
 
         } else if (option === 'Has') {
-            const uHas = this.state.uHas;
-            API.updateUser({
-                has: [...this.state.uHas, uHas]
-            });
+            const Has = parseInt(this.state.uHas);
+            console.log('This has: ' + Has);
             this.setState({
+                userHas: [...this.state.userHas, Has],
                 uHas: ''
-            })
+            });
+            API.updateUser({
+                username: localStorage.getItem('Username'),
+                key: 'has',
+                value: [...this.state.userHas, Has],
+            });
         }
     }
 
@@ -101,7 +112,6 @@ class Control extends Component {
       return (
         <div>
             <Header/>
-            <Link to="/">Logout</Link>
             <div className="wrapper">
                 <div className="forms">
                 <form id="user-needs-form">
@@ -113,7 +123,7 @@ class Control extends Component {
                 <input name="uNeeds" onChange={this.handleInputChange} value={this.state.uNeeds}/>
                 <button type="submit" 
                 onClick={(e)=>{
-                    e.preventDefault()
+                    e.preventDefault(),
                     this.handleUpdate('Needs')
                 }}>Submit</button>
                 </form>
@@ -140,14 +150,15 @@ class Control extends Component {
             <form id="user-has-form">
                 <label htmlFor="message">User Has</label>
                 <br/>
-                <ul className="block" id="message" name="message" required="required">{this.state.userHas.map(card => (
+                <ul id="message" name="message" required="required">{this.state.userHas.map(card => (
                     <li>{card}</li>
                 ))}</ul>
-                <input />
+                <input name="uHas" onChange={this.handleInputChange} value={this.state.uHas} />
                 <button type="submit" 
                 onClick={(e)=>{
-                    e.preventDefault() 
-                    this.handleUpdate()
+                    console.log('test')
+                    e.preventDefault(),
+                    this.handleUpdate('Has')
                 }}>Submit</button>
             </form>
             
