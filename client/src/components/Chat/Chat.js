@@ -16,8 +16,8 @@ class Chat extends Component {
 
 		// console.log('test')
 
-		const socket = openSocket('localhost:3001');
-
+		const socket = openSocket('http://localhost:3001');
+		
 		this.socket = socket;
 
 		//listener to append new messages to be rendered

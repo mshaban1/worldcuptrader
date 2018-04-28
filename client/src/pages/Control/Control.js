@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Chat from "../../components/Chat"
@@ -24,30 +23,24 @@ class Control extends Component {
     componentDidMount() {
         API.usersList()
             .then(result => {
-                console.log(result)
-                // debugger
                 this.setState({ users: result.data })
             })
             .catch(err => alert(err));
 
         API.userHas(localStorage.getItem('Username'))
             .then(result => {
-                //console.log('User has: ' + result)
                 this.setState({ userHas: result.data})
             });
             
         API.userNeeds(localStorage.getItem('Username'))
             .then(result => {
-               // console.log(result)
                 this.setState({ userNeeds: result.data})
             });
     }
 
     clickTrader = event => {
-        console.log('clickTrader launched')
         event.preventDefault();
         const name = event.target.innerText
-       // console.log(name);
         API.userNeeds(name)
             .then(result => {
                 this.setState({
@@ -73,7 +66,7 @@ class Control extends Component {
         if (option === 'Needs') {
         //event.preventDefault();
 
-            const Needs = parseInt(this.state.uNeeds);
+            const Needs = parseInt(this.state.uNeeds, 10);
             this.setState({
                 userNeeds: [...this.state.userNeeds, Needs],
                 uNeeds: ''
@@ -85,16 +78,13 @@ class Control extends Component {
             });
 
         } else if (option === 'Has') {
-            const Has = parseInt(this.state.uHas);
-            this.setState({
-                userHas: [...this.state.userHas, Has],
-                uHas: ''
-            });
+            const uHas = this.state.uHas;
             API.updateUser({
-                username: localStorage.getItem('Username'),
-                key: 'Has',
-                value: [...this.state.userHas, Has],
+                has: [...this.state.uHas, uHas]
             });
+            this.setState({
+                uHas: ''
+            })
         }
     }
 
@@ -136,7 +126,7 @@ class Control extends Component {
             </form>
 
             <form id="traders-list">
-                <label htmlFor="message">Trader's List</label>
+                <label htmlFor="message">Traders List</label>
                 <br/>
                 <div className="block" id="message" name="message" required="required" > 
                     {this.renderTraders()}
@@ -148,15 +138,14 @@ class Control extends Component {
             <form id="user-has-form">
                 <label htmlFor="message">User Has</label>
                 <br/>
-                <ul className="block" id="message" name="message" required="required">{this.state.userHas.map(card => 
-                (
+                <ul id="message" name="message" required="required">{this.state.userHas.map(card => (
                     <li>{card}</li>
                 ))}</ul>
-                <input name="uHas" onChange={this.handleInputChange} value={this.state.uHas}/>
+                <input />
                 <button type="submit" 
                 onClick={(e)=>{
-                    e.preventDefault()
-                    this.handleUpdate('Has')
+                    e.preventDefault() 
+                    this.handleUpdate()
                 }}>Submit</button>
             </form>
             
@@ -167,17 +156,14 @@ class Control extends Component {
                     <li>{card}</li>
                 ))}</ul>
             </form>
-
             <form id="socket-goes-here">
                 <Chat username={this.props.username} />
             </form>
         </div>
     </div>
-
           <Footer/>
         </div>
       )
     }
   }
-
 export default Control;
