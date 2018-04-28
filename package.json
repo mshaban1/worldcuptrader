@@ -17,14 +17,12 @@
     "license": "ISC",
     "devDependencies": {
         "concurrently": "^3.5.0",
-        "nodemon": "^1.11.0"
+        "nodemon": "^1.11.0",
+        "gh-pages": "^1.1.0"
     },
     "dependencies": {
         "express": "^4.15.4",
         "mongoose": "^4.11.7",
         "socket.io": "^2.1.0"
-    },
-    "devDependencies": {
-        "gh-pages": "^1.1.0"
-      }
+    }
 }
